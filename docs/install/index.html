@@ -275,29 +275,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prepare-python-38" class="md-nav__link">
+    Prepare Python 3.8+
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-pytorch" class="md-nav__link">
     Install PyTorch
   </a>
-  
-    <nav class="md-nav" aria-label="Install PyTorch">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-in-docker-container-without-gpu" class="md-nav__link">
-    Install in Docker container without GPU
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-in-docker-container-enabling-gpu-and-cuda-111" class="md-nav__link">
-    Install in Docker container enabling GPU and CUDA 11.1
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -402,29 +389,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prepare-python-38" class="md-nav__link">
+    Prepare Python 3.8+
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-pytorch" class="md-nav__link">
     Install PyTorch
   </a>
-  
-    <nav class="md-nav" aria-label="Install PyTorch">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-in-docker-container-without-gpu" class="md-nav__link">
-    Install in Docker container without GPU
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-in-docker-container-enabling-gpu-and-cuda-111" class="md-nav__link">
-    Install in Docker container enabling GPU and CUDA 11.1
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -449,28 +423,43 @@
                 
                 
                 <h1 id="install">Install</h1>
-<p>First, install Python &gt;= 3.8.</p>
+<p>Following steps are required to complete installing convmodel.</p>
+<ol>
+<li>Prepare Python3.8+ environment</li>
+<li>Install PyTorch</li>
+<li>Install convmodel</li>
+</ol>
+<h2 id="prepare-python-38">Prepare Python 3.8+</h2>
+<p>First, prepare Python 3.8+ environment.</p>
 <h2 id="install-pytorch">Install PyTorch</h2>
 <p>Then install PyTorch &gt;= 1.8,&lt;=1.9. Please refer to <a href="https://pytorch.org/get-started/locally/">official document</a> to find out correct installation for your environment.</p>
 <p>Some examples of installtion are as follows.</p>
-<h3 id="install-in-docker-container-without-gpu">Install in Docker container without GPU</h3>
+<div class="admonition example">
+<p class="admonition-title">Install in Docker container without GPU</p>
 <div class="highlight"><pre><span></span><code>$ docker container run -w /work -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/work --rm -it python:3.8.6-slim-buster bash
-$ pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.8.1
+<span class="o">(</span>container<span class="o">)</span>$ pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.8.1
 </code></pre></div>
-<h3 id="install-in-docker-container-enabling-gpu-and-cuda-111">Install in Docker container enabling GPU and CUDA 11.1</h3>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Install in Docker container enabling GPU and CUDA 11.1</p>
 <p>Assume that CUDA 11.1 is installed in your environment.</p>
 <div class="highlight"><pre><span></span><code>$ docker container run --gpus all --ipc<span class="o">=</span>host --rm -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/work -w /work nvidia/cuda:11.1-devel-ubuntu20.04 bash
 </code></pre></div>
-<p><strong>Note:</strong> <code>--ipc</code> option is required because share memory would not be enough because DataLoader multiprocess requires them. Refer to the <a href="https://discuss.pytorch.org/t/unable-to-write-to-file-torch-18692-1954506624/9990">pytorch discussion</a> for more details.</p>
-<div class="highlight"><pre><span></span><code>$ apt update <span class="o">&amp;&amp;</span> apt install -y python3 python3-pip git
+<p><code>--ipc</code> option is required because share memory would not be enough because DataLoader multiprocess requires them. Refer to the <a href="https://discuss.pytorch.org/t/unable-to-write-to-file-torch-18692-1954506624/9990">pytorch discussion</a> for more details.</p>
+<p>Then install Python3.</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>container<span class="o">)</span>$ apt update <span class="o">&amp;&amp;</span> apt install -y python3 python3-pip git
 </code></pre></div>
-<p>Install PyTorch which corresponds to your environment by following <a href="https://pytorch.org/get-started/locally/">the installation guide</a>.</p>
-<p>For example, in CUDA 11.1 environment, PyTorch can be installed as follows.</p>
-<div class="highlight"><pre><span></span><code>$ pip3 install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+<p>Install PyTorch which corresponds to your environment by following <a href="https://pytorch.org/get-started/locally/">the installation guide</a>.
+For example, in CUDA 11.1 environment, PyTorch can be installed as follows.</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>container<span class="o">)</span>$ pip3 install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
 </code></pre></div>
+</div>
 <h2 id="install-convmodel">Install convmodel</h2>
-<p>Finally, install convmodel:</p>
+<p>Finally, install convmodel from PyPI.</p>
 <div class="highlight"><pre><span></span><code>$ pip install convmodel
+</code></pre></div>
+<p>If you want to run tests, specify <code>[test]</code> option to install dependencies.</p>
+<div class="highlight"><pre><span></span><code>$ pip install convmodel<span class="o">[</span>test<span class="o">]</span>
 </code></pre></div>
                 
               
