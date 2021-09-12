@@ -410,14 +410,14 @@
 The model is easily loaded by using <code>from_pretrained</code> method defined in <code>ConversationModel</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">convmodel</span> <span class="kn">import</span> <span class="n">ConversationModel</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt-2&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>If you want to use GPU to train, <code>device</code> option is for that.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Load model in GPU</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt-2&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 
 <span class="c1"># Load model in CPU</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt-2&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ConverstationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;gpt2&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>If you do not specify any values to <code>device</code>, GPU is used if available.</p>
 <h2 id="training-data">Training data</h2>
