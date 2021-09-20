@@ -323,6 +323,26 @@
     Training
   </a>
   
+    <nav class="md-nav" aria-label="Training">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fit-with-model-saving" class="md-nav__link">
+    Fit with model saving
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-trained-model" class="md-nav__link">
+    Load trained model
+  </a>
+  
 </li>
       
     </ul>
@@ -407,6 +427,26 @@
     Training
   </a>
   
+    <nav class="md-nav" aria-label="Training">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fit-with-model-saving" class="md-nav__link">
+    Fit with model saving
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-trained-model" class="md-nav__link">
+    Load trained model
+  </a>
+  
 </li>
       
     </ul>
@@ -482,8 +522,23 @@ $ head -n1 input/valid.jsonl
 <span class="n">valid_iterator</span> <span class="o">=</span> <span class="n">JsonLinesIterator</span><span class="p">(</span><span class="s2">&quot;input/valid.jsonl&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="training">Training</h2>
-<p>Finally, you can start training by calling <code>fit</code> method with train/valid itarators.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">model</span> <span class="o">=</span> ConversationModel.fit<span class="o">(</span><span class="nv">train_iterator</span><span class="o">=</span>train_iterator, <span class="nv">valid_iterator</span><span class="o">=</span>valid_iterator<span class="o">)</span>
+<p>Finally, you can start training by calling <code>fit</code> method with train and valid itarators.</p>
+<div class="highlight"><pre><span></span><code>model.fit<span class="o">(</span><span class="nv">train_iterator</span><span class="o">=</span>train_iterator, <span class="nv">valid_iterator</span><span class="o">=</span>valid_iterator<span class="o">)</span>
+</code></pre></div>
+<h3 id="fit-with-model-saving">Fit with model saving</h3>
+<p>Although you can save the model by calling <code>.save_pretrained</code> directly to the model as follows,</p>
+<div class="highlight"><pre><span></span><code>model.save_pretrained<span class="o">(</span><span class="s2">&quot;model&quot;</span><span class="o">)</span>
+</code></pre></div>
+<p>you can also pass the directory to be saved as <code>output_path</code> parameter to <code>fit</code> method.</p>
+<div class="highlight"><pre><span></span><code>model.fit<span class="o">(</span><span class="nv">train_iterator</span><span class="o">=</span>train_iterator, <span class="nv">valid_iterator</span><span class="o">=</span>valid_iterator, <span class="nv">output_path</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="o">)</span>
+</code></pre></div>
+<p><code>output_path</code> option allows you to pass <code>save_best_model</code> as a parameter.
+This option enables to save only the best model based on validation perplexity in <code>output_path</code>.</p>
+<div class="highlight"><pre><span></span><code>model.fit<span class="o">(</span><span class="nv">train_iterator</span><span class="o">=</span>train_iterator, <span class="nv">valid_iterator</span><span class="o">=</span>valid_iterator, <span class="nv">output_path</span><span class="o">=</span><span class="s2">&quot;model&quot;</span>, <span class="nv">save_best_model</span><span class="o">=</span>True<span class="o">)</span>
+</code></pre></div>
+<h2 id="load-trained-model">Load trained model</h2>
+<p>Oncde model training is completed, you can load your trained model by <code>.from_pretrained</code> method.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">model</span> <span class="o">=</span> ConversationModel.from_pretrained<span class="o">(</span><span class="s2">&quot;model&quot;</span><span class="o">)</span>
 </code></pre></div>
                 
               
