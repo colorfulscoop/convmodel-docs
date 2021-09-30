@@ -433,18 +433,20 @@
 </code></pre></div>
 <h2 id="fit-train-your-model">fit - train your model</h2>
 <p>This is a simple wrapper interface of <code>ConversationModel.fit</code> method.
-You can simply run training by json config file via this interface.</p>
-<p>All you need to do is preparing json config file. A template is prepared under <code>example/fit_config.json</code>.</p>
-<div class="highlight"><pre><span></span><code>$ cat example/fit_config.json
+You can simply run training based on a json config file.</p>
+<p>All you need to do is preparing json config file.
+You can generate a template file as follows.</p>
+<div class="highlight"><pre><span></span><code>$ python -m convmodel fit --print_config &gt;config.json
+$ cat config.json
 <span class="o">{</span>
-  <span class="s2">&quot;pretrained_model_or_path&quot;</span>: <span class="s2">&quot;(input your pretrained model path&quot;</span>,
-  <span class="s2">&quot;output_path&quot;</span>: <span class="s2">&quot;(input your output path)&quot;</span>,
-  <span class="s2">&quot;train_file&quot;</span>: <span class="s2">&quot;(input yout train file)&quot;</span>,
-  <span class="s2">&quot;valid_file&quot;</span>: <span class="s2">&quot;(input your valid file)&quot;</span>,
-  <span class="s2">&quot;eval_file&quot;</span>: <span class="s2">&quot;(input your eval file)&quot;</span>,
+  <span class="s2">&quot;pretrained_model_or_path&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;output_path&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;train_file&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;valid_file&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;eval_file&quot;</span>: null,
   <span class="s2">&quot;save_best_model&quot;</span>: false,
   <span class="s2">&quot;device&quot;</span>: null,
-  <span class="s2">&quot;lr&quot;</span>: 1e-4,
+  <span class="s2">&quot;lr&quot;</span>: <span class="m">0</span>.0001,
   <span class="s2">&quot;warmup_steps&quot;</span>: <span class="m">10000</span>,
   <span class="s2">&quot;use_amp&quot;</span>: false,
   <span class="s2">&quot;epochs&quot;</span>: <span class="m">1</span>,
@@ -491,22 +493,24 @@ You can simply run training by json config file via this interface.</p>
 </tr>
 </tbody>
 </table>
-<p>One example of train/valid file is as follows.</p>
+<p>The format of train and valid files should be <a href="https://jsonlines.org/">JSON Lines</a>.
+Each line should be a list of utterances of each conversation.</p>
+<p>One example of the files is as follows.</p>
 <div class="highlight"><pre><span></span><code>$ head -n3 input/train.jsonl
 <span class="o">[</span><span class="s2">&quot;Hello&quot;</span>, <span class="s2">&quot;Hi, how are you?&quot;</span>, <span class="s2">&quot;Good, thank you, how about you?&quot;</span>, <span class="s2">&quot;Good, thanks!&quot;</span><span class="o">]</span>
 <span class="o">[</span><span class="s2">&quot;I am hungry&quot;</span>, <span class="s2">&quot;How about eating pizza?&quot;</span><span class="o">]</span>
 <span class="o">[</span><span class="s2">&quot;Tired...&quot;</span>, <span class="s2">&quot;Let&#39;s have a break!&quot;</span>, <span class="s2">&quot;Nice idea!&quot;</span><span class="o">]</span>
 </code></pre></div>
 <p>After preparing config json file, you can start training by <code>fit</code> CLI command.</p>
-<div class="highlight"><pre><span></span><code>$ python -m convmodel fit --config example/fit_config.json
+<div class="highlight"><pre><span></span><code>$ python -m convmodel fit --config config.json
 </code></pre></div>
-<p>After completing training, you can load the trained model from <code>output_path</code> for <code>ConversationModel</code>.</p>
+<p>Once training completes, you can load the trained model from <code>output_path</code> for <code>ConversationModel</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">convmodel</span> <span class="kn">import</span> <span class="n">ConversationModel</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">ConversationModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="eval-evaluate-your-model">eval - evaluate your model</h2>
 <p>You can evaluate your model towards <code>eval_file</code> defined in config file.</p>
-<div class="highlight"><pre><span></span><code>$ python -m convmodel <span class="nb">eval</span> --config example/fit_config.json
+<div class="highlight"><pre><span></span><code>$ python -m convmodel <span class="nb">eval</span> --config config.json
 </code></pre></div>
 <h2 id="try-try-your-model">try - try your model</h2>
 <p>convmodel CLI provides streamlit interface to test conversation of your model.</p>
